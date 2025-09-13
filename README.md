@@ -1,169 +1,134 @@
-# VMware vSAN 8 – Training Outline
+# VMware vSAN 8 – Install, Configure, Manage 🖥️
 
-**Author:** LT  
-**License:** MIT  
-**Duration:** 4 days  
-**Audience:** Storage and virtualization Consultants, Architects, and Administrators  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Training Duration](https://img.shields.io/badge/Duration-4%20Days-blue)
+![Audience](https://img.shields.io/badge/Audience-Consultants%20%7C%20Architects-blueviolet)
+![VMware vSAN](https://img.shields.io/badge/vSAN-8.0-orange)
+![Status](https://img.shields.io/badge/Status-Active-success)
+
+---
+
+## Overview
+
+**VMware vSAN 8 – Install, Configure, Manage** is a 4-day **hands-on training** that combines theory and lab work to help you **plan, deploy, and operate resilient vSAN clusters**.  
+Ideal for **Storage / Virtualization Consultants, Architects, and Administrators** seeking **real-world lab practice**.
+
+> **Version:** 1.0  
+> **Author:** LT
+
+---
+
+## Table of Contents
+1. [Overview](#overview)  
+2. [Audience & Fit](#audience--fit)  
+3. [Prerequisites](#prerequisites)  
+4. [Training Syllabus](#training-syllabus)  
+5. [Delivery Formats](#delivery-formats)  
+6. [Trainer Checklist](#trainer-checklist)  
+7. [Suggested Flow](#suggested-flow)  
+8. [Screenshots](#screenshots)  
+9. [Resources & License](#resources--license)  
+10. [Contact / More Info](#contact--more-info)
 
 ---
 
 ## Audience & Fit
-This course is intended for professionals responsible for the production, support, and administration of VMware vSAN 8. It blends instructor-led sessions with extensive hands-on labs to prepare participants for planning, deploying, and operating resilient vSAN clusters.
+
+- Professionals involved in production, support, or administration of **VMware vSAN 8**  
+- Anyone designing and implementing **resilient, scalable virtual storage**  
+- System Engineers, Consultants, Virtualization Architects  
+- Organizations preparing for **VMware certifications** or audits  
+
+---
 
 ## Prerequisites
-- Completion of *VMware vSphere: Install, Configure, Manage* or equivalent knowledge.  
+
+- Basic understanding of **VMware vSphere (ICM)**  
+- Knowledge of ESXi host architecture, networking, and storage fundamentals  
+- A **lab or sandbox environment** is strongly recommended  
 
 ---
 
-# Training Syllabus
+## Training Syllabus
 
-The training program spans 13 focused modules, each combining conceptual explanation with labs and practical exercises.
-
----
-
-### Module 1 — Course Introduction
-- Introductions and logistics.  
-- Course objectives.  
-
-**Objective:** Ensure participants understand course flow, expectations, and resources.
-
----
-
-### Module 2 — Introduction to vSAN
-- vSAN concepts and architectures.  
-- Implementation types and disk configurations.  
-- vSAN Storage Policies overview.  
-
-**Objective:** Provide foundational knowledge of vSAN design and use cases.
-
----
-
-### Module 3 — Planning a vSAN Cluster
-- vSAN requirements.  
-- Capacity planning factors.  
-- Using the ReadyNode Sizer.  
-
-**Objective:** Equip learners to evaluate hardware and capacity for cluster readiness.
-
----
-
-### Module 4 — Deploying a vSAN Cluster
-- Cluster configuration types and setup steps.  
-- Validation of configurations.  
-- Auto-Policy Management.  
-- Reserved Capacity configuration.  
-
-**Objective:** Build skills to deploy robust clusters with proper configuration and validation.
-
----
-
-### Module 5 — vSAN Storage Policies
-- Objects and components in vSAN.  
-- Policy integration and customization.  
-- ESA snapshots and namespace objects.  
-- Impacts of configuration changes.  
-
-**Objective:** Enable participants to design and apply policies that align storage behavior with business needs.
-
----
-
-### Module 6 — vSAN Resilience and Data Availability
-- Component states and fault domains.  
-- Handling failures and partitions.  
-- Object repair processes.  
-
-**Objective:** Develop strategies for resilience and ensuring data availability.
-
----
-
-### Module 7 — Managing vSAN Space Efficiency
-- Compression-only mode in OSA.  
-- Deduplication and compression.  
-- ESA compression.  
-- TRIM/UNMAP for reclaiming space.  
-
-**Objective:** Teach administrators to optimize storage efficiency.
-
----
-
-### Module 8 — vSAN Security Operations
-- Data-at-Rest Encryption setup and key management.  
-- Host boot with encrypted disks.  
-- Data-in-Transit Encryption.  
-
-**Objective:** Secure vSAN environments through encryption and robust key handling.
-
----
-
-### Module 9 — vSAN Stretched and Two-Node Clusters
-- Architecture and use cases.  
-- Read/write operations in stretched mode.  
-- Networking requirements.  
-- Witness host and shared witness appliance.  
-
-**Objective:** Prepare learners to deploy clusters across sites for resilience and availability.
-
----
-
-### Module 10 — vSAN Cross-Cluster Capacity Sharing
-- Purpose and benefits.  
-- Supported topologies.  
-- Remote datastore operations.  
-
-**Objective:** Show how to extend capacity flexibly across clusters.
-
----
-
-### Module 11 — vSAN File Service and iSCSI Target Service
-- File Service architecture and configuration.  
-- Create shares and snapshots.  
-- Monitoring performance.  
-- iSCSI target service setup and networking.  
-
-**Objective:** Enable file and block service provisioning from vSAN.
-
----
-
-### Module 12 — vSAN Cluster Maintenance
-- Maintenance mode and data evacuation.  
-- Precheck reports and shutdown procedures.  
-- Scaling clusters; disk and host replacement.  
-- Upgrade process and best practices.  
-
-**Objective:** Provide the ability to maintain and upgrade clusters without service disruption.
-
----
-
-### Module 13 — vSAN Cluster Monitoring
-- PNOMA framework overview.  
-- Using Skyline Health.  
-- Proactive tests and performance charts.  
-- Capacity monitoring and forecasting.  
-
-**Objective:** Build proficiency in monitoring, forecasting, and proactively addressing issues.
+| Module | Title | Key Topics | Objective |
+|--------|-------|-----------|-----------|
+| 1 | Course Introduction | Objectives, Logistics, Setup | Align expectations, tools, environment |
+| 2 | Intro to vSAN | Architecture, Disk Types, Policies | Build foundational understanding |
+| 3 | Planning a vSAN Cluster | Hardware, Capacity Planning, ReadyNode | Assess readiness and design |
+| 4 | Deploying a vSAN Cluster | Setup, Validation, Reserved Capacity | Confident deployment |
+| 5 | vSAN Storage Policies | ESA Snapshots, Namespaces, Objects | Custom policies for workloads |
+| 6 | Resilience & Data Availability | Fault Domains, Repairs, Partitions | Availability during failures |
+| 7 | Space Efficiency | Deduplication, Compression, TRIM | Optimize storage |
+| 8 | Security Operations | Encryption, KMS, Secure Boot | Secure data |
+| 9 | Stretched & 2-Node Clusters | Witness, Networking, Design | Multi-site design |
+| 10 | Capacity Sharing | Remote Datastore, Scaling | Flexible growth |
+| 11 | File & iSCSI Services | File Shares, Snapshots | Expand services |
+| 12 | Cluster Maintenance | Evacuation, Upgrades | Non-disruptive operations |
+| 13 | Monitoring | Skyline Health, Forecasting | Proactive management |
 
 ---
 
 ## Delivery Formats
-- Classroom  
-- Live online  
-- Private training  
-- On demand  
+
+- 🏫 **Classroom** training  
+- 💻 **Virtual / Live Online** training  
+- 🏢 **Private On-site** delivery for teams  
+- 🎥 **On-demand / Recorded** content for flexibility  
 
 ---
 
 ## Trainer Checklist
-- Validate lab readiness (hosts, storage, network).  
-- Prepare datasets for cluster scenarios.  
-- Test encryption, stretched cluster, and maintenance labs.  
-- Confirm monitoring dashboards and health tools.  
 
-## Suggested Delivery Flow
-- **Day 1:** Modules 1–3 (Introduction, basics, planning)  
-- **Day 2:** Modules 4–6 (Deployment, policies, resilience)  
-- **Day 3:** Modules 7–9 (Efficiency, security, stretched clusters)  
-- **Day 4:** Modules 10–13 (Advanced services, maintenance, monitoring)  
+- ✅ Functional lab with vSAN-ready hardware or nested ESXi hosts  
+- ✅ Preconfigured scenarios for capacity, resilience, and maintenance  
+- ✅ Tools: ReadyNode Validator, Skyline Health, Performance Charts  
+- ✅ Security & encryption exercises tested  
 
 ---
 
-## Repository Layout
+## Suggested Flow
+
+| Day | Modules |
+|-----|---------|
+| **Day 1** | Modules 1 → 3 |
+| **Day 2** | Modules 4 → 6 |
+| **Day 3** | Modules 7 → 9 |
+| **Day 4** | Modules 10 → 13 |
+
+---
+
+## Screenshots
+
+> *(Replace placeholders with actual images from your lab setup for maximum effect)*
+
+| Lab Overview | vSAN Health View | Storage Policies |
+|--------------|-----------------|------------------|
+| ![Lab Setup Placeholder](docs/images/lab-setup.png) | ![Health Checks Placeholder](docs/images/health-checks.png) | ![Storage Policies Placeholder](docs/images/storage-policies.png) |
+
+---
+
+## Resources & License
+
+- 📜 Licensed under [MIT License](LICENSE)  
+- 📂 Includes slides, exercises, and reference guides  
+- 🌐 [VMware vSAN Docs](https://docs.vmware.com/en/VMware-vSAN/index.html) for latest updates  
+
+---
+
+## Contact / More Info
+
+For custom training, consulting, or questions:  
+- 🔗 Open a GitHub Issue  
+- ✉️ Reach out to **LT** (insert contact)  
+
+---
+
+## Roadmap
+
+- [ ] Add **advanced tuning labs**  
+- [ ] Include **vRealize Operations integration**  
+- [ ] Add **pre/post-training assessment quizzes**  
+- [ ] Expand **lab automation scripts**
+
+---
