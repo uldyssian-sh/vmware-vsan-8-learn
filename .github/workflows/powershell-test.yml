@@ -1,0 +1,205 @@
+name: PowerShell Script Testing
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths: [ 'scripts/**/*.ps1' ]
+  pull_request:
+    branches: [ main ]
+    paths: [ 'scripts/**/*.ps1' ]
+
+jobs:
+  powershell-syntax-test:
+    runs-on: windows-latest
+    name: PowerShell Syntax and Quality Tests
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install PowerShell modules
+      shell: powershell
+      run: |
+        Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+        Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+        Install-Module -Name Pester -Force -Scope CurrentUser
+        
+    - name: Run PowerShell Script Analyzer
+      shell: powershell
+      run: |
+        $scripts = Get-ChildItem -Path "scripts" -Filter "*.ps1" -Recurse
+        $issues = @()
+        
+        foreach ($script in $scripts) {
+          Write-Host "Analyzing $($script.FullName)" -ForegroundColor Cyan
+          
+          $results = Invoke-ScriptAnalyzer -Path $script.FullName -Severity @('Error', 'Warning')
+          
+          if ($results) {
+            $issues += $results
+            foreach ($result in $results) {
+              Write-Host "  [$($result.Severity)] $($result.RuleName): $($result.Message)" -ForegroundColor $(if($result.Severity -eq 'Error'){'Red'}else{'Yellow'})
+              Write-Host "    Line $($result.Line): $($result.ScriptName)" -ForegroundColor Gray
+            }
+          } else {
+            Write-Host "  ✅ No issues found" -ForegroundColor Green
+          }
+        }
+        
+        if ($issues | Where-Object {$_.Severity -eq 'Error'}) {
+          Write-Host "`n❌ PowerShell Script Analyzer found errors!" -ForegroundColor Red
+          exit 1
+        } elseif ($issues | Where-Object {$_.Severity -eq 'Warning'}) {
+          Write-Host "`n⚠️ PowerShell Script Analyzer found warnings, but continuing..." -ForegroundColor Yellow
+        } else {
+          Write-Host "`n✅ All PowerShell scripts passed analysis!" -ForegroundColor Green
+        }
+        
+    - name: Test PowerShell Script Parameters
+      shell: powershell
+      run: |
+        $scripts = Get-ChildItem -Path "scripts" -Filter "*.ps1" -Recurse
+        $parameterIssues = @()
+        
+        foreach ($script in $scripts) {
+          Write-Host "Testing parameters for $($script.Name)" -ForegroundColor Cyan
+          
+          try {
+            # Parse script to get parameters
+            $ast = [System.Management.Automation.Language.Parser]::ParseFile($script.FullName, [ref]$null, [ref]$null)
+            $params = $ast.FindAll({$args[0] -is [System.Management.Automation.Language.ParameterAst]}, $true)
+            
+            foreach ($param in $params) {
+              $paramName = $param.Name.VariablePath.UserPath
+              
+              # Check for sensitive parameter names
+              $sensitivePatterns = @('password', 'secret', 'key', 'token', 'credential')
+              foreach ($pattern in $sensitivePatterns) {
+                if ($paramName -like "*$pattern*") {
+                  # Check if parameter has SecureString or PSCredential type
+                  $paramType = $param.StaticType
+                  if ($paramType -and $paramType.Name -notin @('SecureString', 'PSCredential')) {
+                    $parameterIssues += "Parameter '$paramName' in $($script.Name) should use SecureString or PSCredential type"
+                  }
+                }
+              }
+            }
+            
+            Write-Host "  ✅ Parameters validated" -ForegroundColor Green
+          }
+          catch {
+            Write-Host "  ❌ Error parsing script: $($_.Exception.Message)" -ForegroundColor Red
+            $parameterIssues += "Failed to parse $($script.Name): $($_.Exception.Message)"
+          }
+        }
+        
+        if ($parameterIssues) {
+          Write-Host "`n⚠️ Parameter issues found:" -ForegroundColor Yellow
+          $parameterIssues | ForEach-Object { Write-Host "  $_" -ForegroundColor Yellow }
+        } else {
+          Write-Host "`n✅ All script parameters validated!" -ForegroundColor Green
+        }
+        
+    - name: Check for Hardcoded Values
+      shell: powershell
+      run: |
+        $scripts = Get-ChildItem -Path "scripts" -Filter "*.ps1" -Recurse
+        $hardcodedIssues = @()
+        
+        # Patterns to check for hardcoded values
+        $patterns = @{
+          'IP Address' = '\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
+          'Email' = '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+          'Domain' = '\b[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}\b'
+          'AWS Account ID' = '\b[0-9]{12}\b'
+          'Personal Name' = '\b(lubomir|tobek)\b'
+        }
+        
+        foreach ($script in $scripts) {
+          $content = Get-Content $script.FullName -Raw
+          
+          foreach ($patternName in $patterns.Keys) {
+            $pattern = $patterns[$patternName]
+            $matches = [regex]::Matches($content, $pattern, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+            
+            foreach ($match in $matches) {
+              # Skip if it's in a comment or example
+              $lines = $content.Substring(0, $match.Index).Split("`n")
+              $lineNumber = $lines.Count
+              $currentLine = $content.Split("`n")[$lineNumber - 1]
+              
+              if ($currentLine -notmatch '^\s*#' -and $currentLine -notmatch 'example|placeholder|template') {
+                $hardcodedIssues += "$($script.Name):$lineNumber - Potential hardcoded $patternName`: $($match.Value)"
+              }
+            }
+          }
+        }
+        
+        if ($hardcodedIssues) {
+          Write-Host "`n❌ Hardcoded values found:" -ForegroundColor Red
+          $hardcodedIssues | ForEach-Object { Write-Host "  $_" -ForegroundColor Red }
+          exit 1
+        } else {
+          Write-Host "`n✅ No hardcoded values detected!" -ForegroundColor Green
+        }
+        
+    - name: Test Script Help Documentation
+      shell: powershell
+      run: |
+        $scripts = Get-ChildItem -Path "scripts" -Filter "*.ps1" -Recurse
+        $helpIssues = @()
+        
+        foreach ($script in $scripts) {
+          Write-Host "Checking help documentation for $($script.Name)" -ForegroundColor Cyan
+          
+          $content = Get-Content $script.FullName -Raw
+          
+          # Check for basic help elements
+          $hasDescription = $content -match '\.DESCRIPTION'
+          $hasExample = $content -match '\.EXAMPLE'
+          $hasParameters = $content -match '\.PARAMETER'
+          
+          if (-not $hasDescription) {
+            $helpIssues += "$($script.Name) missing .DESCRIPTION in help"
+          }
+          
+          if (-not $hasExample) {
+            $helpIssues += "$($script.Name) missing .EXAMPLE in help"
+          }
+          
+          # Check if script has parameters but no parameter documentation
+          if ($content -match 'param\s*\(' -and -not $hasParameters) {
+            $helpIssues += "$($script.Name) has parameters but missing .PARAMETER documentation"
+          }
+        }
+        
+        if ($helpIssues) {
+          Write-Host "`n⚠️ Help documentation issues:" -ForegroundColor Yellow
+          $helpIssues | ForEach-Object { Write-Host "  $_" -ForegroundColor Yellow }
+        } else {
+          Write-Host "`n✅ All scripts have adequate help documentation!" -ForegroundColor Green
+        }
+        
+    - name: Generate Test Report
+      shell: powershell
+      run: |
+        $testResults = @{
+          Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+          ScriptsAnalyzed = (Get-ChildItem -Path "scripts" -Filter "*.ps1" -Recurse).Count
+          TestsPassed = $true
+          Summary = "PowerShell script quality tests completed"
+        }
+        
+        $testResults | ConvertTo-Json | Out-File "powershell-test-results.json"
+        
+        Write-Host "`n📊 Test Summary:" -ForegroundColor Cyan
+        Write-Host "Scripts Analyzed: $($testResults.ScriptsAnalyzed)"
+        Write-Host "Tests Status: $(if($testResults.TestsPassed){'PASSED'}else{'FAILED'})"
+        Write-Host "Timestamp: $($testResults.Timestamp)"
+        
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: powershell-test-results
+        path: powershell-test-results.json

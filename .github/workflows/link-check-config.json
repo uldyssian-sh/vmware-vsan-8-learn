@@ -1,0 +1,53 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^http://localhost"
+    },
+    {
+      "pattern": "^https://localhost"
+    },
+    {
+      "pattern": "^http://127.0.0.1"
+    },
+    {
+      "pattern": "^https://127.0.0.1"
+    },
+    {
+      "pattern": "^http://.*\\.local"
+    },
+    {
+      "pattern": "^https://.*\\.local"
+    },
+    {
+      "pattern": "^http://192\\.168\\."
+    },
+    {
+      "pattern": "^https://192\\.168\\."
+    },
+    {
+      "pattern": "^http://10\\."
+    },
+    {
+      "pattern": "^https://10\\."
+    },
+    {
+      "pattern": "^http://172\\."
+    },
+    {
+      "pattern": "^https://172\\."
+    }
+  ],
+  "httpHeaders": [
+    {
+      "urls": ["https://docs.vmware.com"],
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (compatible; link-checker)"
+      }
+    }
+  ],
+  "timeout": "10s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackRetryDelay": "30s",
+  "aliveStatusCodes": [200, 206, 301, 302, 303, 307, 308]
+}

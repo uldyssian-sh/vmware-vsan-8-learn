@@ -1,0 +1,123 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# PowerShell
+*.ps1xml
+*.psd1
+*.psm1
+
+# Logs and Temporary Files
+*.log
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# Credentials and Sensitive Data
+*.credentials
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.json
+config.json
+.env
+.env.local
+.env.production
+
+# VMware Specific
+*.vmx
+*.vmdk
+*.nvram
+*.vmss
+*.vmsn
+*.vmem
+*.vmtm
+*.vmxf
+*.vmsd
+
+# Backup Files
+*-backup-*
+backup-*
+*.backup.*
+vsan-backup-*/
+vsan-health-report-*.html
+
+# Build and Distribution
+build/
+dist/
+out/
+target/
+bin/
+obj/
+
+# Package Managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Documentation Build
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Test Results
+test-results/
+coverage/
+*.coverage
+.nyc_output/
+
+# Local Configuration
+local.config
+local.settings
+*.local.*
+
+# Archive Files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Large Files (should use Git LFS)
+*.iso
+*.ova
+*.ovf
+
+# Personal Notes
+notes.md
+todo.md
+personal/
+private/

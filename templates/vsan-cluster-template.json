@@ -1,0 +1,214 @@
+{
+  "clusterConfiguration": {
+    "name": "vSAN-Production-Cluster",
+    "description": "Production vSAN cluster template",
+    "vsanSettings": {
+      "enabled": true,
+      "autoClaimStorage": false,
+      "dedupAndCompression": true,
+      "encryption": {
+        "enabled": false,
+        "kmsCluster": ""
+      },
+      "stretchedCluster": {
+        "enabled": false,
+        "witnessHost": "",
+        "preferredSite": "",
+        "secondarySite": ""
+      },
+      "performanceService": {
+        "enabled": true,
+        "verboseMode": false
+      },
+      "healthService": {
+        "enabled": true,
+        "networkDiagnosticMode": false
+      }
+    },
+    "networkConfiguration": {
+      "vsanNetwork": {
+        "subnet": "192.168.100.0/24",
+        "vlanId": 100,
+        "mtu": 9000,
+        "multicastEnabled": true
+      },
+      "witnessNetwork": {
+        "subnet": "192.168.101.0/24",
+        "vlanId": 101,
+        "mtu": 1500
+      }
+    },
+    "storageConfiguration": {
+      "diskGroups": {
+        "cacheToCapacityRatio": "1:10",
+        "maxDiskGroupsPerHost": 5,
+        "preferredCacheTier": "NVMe",
+        "preferredCapacityTier": "SSD"
+      },
+      "defaultStoragePolicy": {
+        "name": "vSAN Default Storage Policy",
+        "rules": {
+          "hostFailuresToTolerate": 1,
+          "failureToleranceMethod": "RAID-1",
+          "stripeWidth": 1,
+          "objectSpaceReservation": 0,
+          "flashReadCacheReservation": 0,
+          "checksumDisabled": false,
+          "forceProvisioning": false,
+          "iopsLimit": 0
+        }
+      }
+    }
+  },
+  "hostConfiguration": {
+    "minimumHosts": 3,
+    "recommendedHosts": 4,
+    "hostRequirements": {
+      "cpu": {
+        "minimumCores": 8,
+        "recommendedCores": 16,
+        "architecture": "x86_64"
+      },
+      "memory": {
+        "minimumGB": 32,
+        "recommendedGB": 64,
+        "vsanOverheadGB": 8
+      },
+      "storage": {
+        "minimumCacheDevices": 1,
+        "minimumCapacityDevices": 1,
+        "recommendedCacheSize": "600GB",
+        "supportedControllers": [
+          "LSI MegaRAID",
+          "Dell PERC",
+          "HPE Smart Array"
+        ]
+      },
+      "network": {
+        "minimumBandwidth": "1GbE",
+        "recommendedBandwidth": "10GbE",
+        "requiredAdapters": 2,
+        "supportedTypes": [
+          "Intel",
+          "Broadcom",
+          "Mellanox"
+        ]
+      }
+    }
+  },
+  "storagePolicies": [
+    {
+      "name": "vSAN-Performance",
+      "description": "High performance policy for critical workloads",
+      "rules": {
+        "hostFailuresToTolerate": 1,
+        "failureToleranceMethod": "RAID-1",
+        "stripeWidth": 2,
+        "objectSpaceReservation": 25,
+        "flashReadCacheReservation": 25,
+        "checksumDisabled": false,
+        "forceProvisioning": false,
+        "iopsLimit": 0
+      },
+      "useCases": [
+        "Database servers",
+        "Application servers",
+        "High-performance workloads"
+      ]
+    },
+    {
+      "name": "vSAN-Capacity",
+      "description": "Space-efficient policy for general workloads",
+      "rules": {
+        "hostFailuresToTolerate": 1,
+        "failureToleranceMethod": "RAID-1",
+        "stripeWidth": 1,
+        "objectSpaceReservation": 0,
+        "flashReadCacheReservation": 0,
+        "checksumDisabled": false,
+        "forceProvisioning": false,
+        "iopsLimit": 0
+      },
+      "useCases": [
+        "File servers",
+        "Archive storage",
+        "Development environments"
+      ]
+    },
+    {
+      "name": "vSAN-Balanced",
+      "description": "Balanced policy for most workloads",
+      "rules": {
+        "hostFailuresToTolerate": 1,
+        "failureToleranceMethod": "RAID-1",
+        "stripeWidth": 1,
+        "objectSpaceReservation": 10,
+        "flashReadCacheReservation": 10,
+        "checksumDisabled": false,
+        "forceProvisioning": false,
+        "iopsLimit": 0
+      },
+      "useCases": [
+        "Virtual desktops",
+        "Web servers",
+        "General purpose VMs"
+      ]
+    }
+  ],
+  "monitoringConfiguration": {
+    "healthChecks": {
+      "enabled": true,
+      "frequency": "daily",
+      "alertThresholds": {
+        "capacityWarning": 80,
+        "capacityCritical": 90,
+        "performanceWarning": 1000,
+        "performanceCritical": 2000
+      }
+    },
+    "performanceMonitoring": {
+      "enabled": true,
+      "retentionDays": 30,
+      "metricsCollection": [
+        "IOPS",
+        "Throughput",
+        "Latency",
+        "Capacity utilization"
+      ]
+    }
+  },
+  "maintenanceConfiguration": {
+    "backupSchedule": {
+      "configurationBackup": "weekly",
+      "vmBackup": "daily",
+      "retentionDays": 30
+    },
+    "updateSchedule": {
+      "vsanUpdates": "quarterly",
+      "hostUpdates": "monthly",
+      "maintenanceWindow": "Sunday 02:00-06:00"
+    }
+  },
+  "securityConfiguration": {
+    "encryption": {
+      "dataAtRest": false,
+      "dataInTransit": false,
+      "kmsProvider": ""
+    },
+    "accessControl": {
+      "rbacEnabled": true,
+      "auditLogging": true,
+      "certificateManagement": "automatic"
+    }
+  },
+  "deploymentNotes": [
+    "Verify all hardware is on VMware HCL",
+    "Configure time synchronization across all hosts",
+    "Ensure network connectivity and multicast support",
+    "Test storage device performance before deployment",
+    "Plan for adequate cooling and power",
+    "Document all configuration changes",
+    "Test backup and recovery procedures",
+    "Establish monitoring and alerting"
+  ]
+}
