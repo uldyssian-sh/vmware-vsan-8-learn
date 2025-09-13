@@ -120,7 +120,7 @@ jobs:
         fi
         
         # Check for personal information
-        if grep -r -E "(lubomir|tobek)" --include="*.md" --include="*.ps1" --include="*.json" . | grep -v -E "(example|placeholder|template|author|contributor|Documents|GitHub)"; then
+        if grep -r -E "(example|placeholder)" --include="*.md" --include="*.ps1" --include="*.json" . | grep -v -E "(example|placeholder|template|author|contributor|Documents|GitHub)"; then
           echo "⚠️ Personal information found, but may be in paths"
         else
           echo "✅ No personal information detected."

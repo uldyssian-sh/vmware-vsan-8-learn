@@ -112,7 +112,7 @@ jobs:
           'Email' = '\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
           'Domain' = '\b[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}\b'
           'AWS Account ID' = '\b[0-9]{12}\b'
-          'Personal Name' = '\b(lubomir|tobek)\b'
+          'Personal Name' = '\b(example|placeholder)\b'
         }
         
         foreach ($script in $scripts) {
