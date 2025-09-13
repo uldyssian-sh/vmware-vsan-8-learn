@@ -98,16 +98,6 @@ Ideal for **Storage / Virtualization Consultants, Architects, and Administrators
 
 ---
 
-## Screenshots
-
-> *(Replace placeholders with actual images from your lab setup for maximum effect)*
-
-| Lab Overview | vSAN Health View | Storage Policies |
-|--------------|-----------------|------------------|
-| ![Lab Setup Placeholder](docs/images/lab-setup.png) | ![Health Checks Placeholder](docs/images/health-checks.png) | ![Storage Policies Placeholder](docs/images/storage-policies.png) |
-
----
-
 ## Resources & License
 
 - 📜 Licensed under [MIT License](LICENSE)  
