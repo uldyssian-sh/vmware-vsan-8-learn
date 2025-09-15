@@ -47,7 +47,8 @@ A comprehensive learning resource for VMware vSAN 8, including hands-on labs, co
 
 ## 🎯 Overview
 
-This repository provides a complete learning path for VMware vSAN 8, from basic concepts to advanced configurations and automation. Whether you're preparing for certification or implementing vSAN in production, this resource has you covered.
+This repository provides a complete learning path for VMware vSAN 8, from basic concepts to advanced configurations and automation.
+Whether you're preparing for certification or implementing vSAN in production, this resource has you covered.
 
 ## 📚 Contents
 
@@ -164,4 +165,5 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ---
 
-**Disclaimer**: This repository is for educational purposes. Always test configurations in a lab environment before implementing in production.
+**Disclaimer**: This repository is for educational purposes.
+Always test configurations in a lab environment before implementing in production.
