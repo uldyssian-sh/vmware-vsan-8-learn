@@ -1,213 +1,56 @@
-# VMware vSAN 8 Learning Repository
-
-## Table of Contents
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Examples](#examples)
-- [Contributing](#contributing)
-- [License](#license)
-- [Support](#support)
-
-## Prerequisites
-
-Before using this project, ensure you have:
-- Required tools and dependencies
-- Proper access credentials
-- System requirements met
-
+# vmware vsan 8 learn
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![VMware vSAN](https://img.shields.io/badge/VMware-vSAN%208-blue.svg)](https://www.vmware.com/products/vsan.html)
-[![Documentation](https://img.shields.io/badge/docs-wiki-green.svg)](./wiki)
-[![Tutorials](https://img.shields.io/badge/tutorials-available-orange.svg)](./tutorials)
-
-A comprehensive learning resource for VMware vSAN 8, including hands-on labs, configuration examples, automation scripts, and best practices.
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                           VMware vSphere Environment                           │
-├─────────────────────────────────────────────────────────────────────────────────┤
-│  ┌─────────────────────────────────────────────────────────────────────────┐    │
-│  │                        vCenter Server                                  │    │
-│  │                    • Management Interface                              │    │
-│  │                    • API Endpoints                                     │    │
-│  │                    • Configuration Database                            │    │
-│  └─────────────────────────────────────────────────────────────────────────┘    │
-│                                       │                                         │
-│                                       ▼                                         │
-│  ┌─────────────────┬─────────────────┬─────────────────────────────────────┐    │
-│  │   ESXi Host 1   │   ESXi Host 2   │   ESXi Host 3                       │    │
-│  │                 │                 │                                     │    │
-│  │ ┌─────────────┐ │ ┌─────────────┐ │ ┌─────────────┐                     │    │
-│  │ │ Virtual     │ │ │ Virtual     │ │ │ Virtual     │                     │    │
-│  │ │ Machines    │ │ │ Machines    │ │ │ Machines    │                     │    │
-│  │ │             │ │ │             │ │ │             │                     │    │
-│  │ │ • Security  │ │ │ • Security  │ │ │ • Security  │                     │    │
-│  │ │ • Config    │ │ │ • Config    │ │ │ • Config    │                     │    │
-│  │ │ • Compliance│ │ │ • Compliance│ │ │ • Compliance│                     │    │
-│  │ └─────────────┘ │ └─────────────┘ │ └─────────────┘                     │    │
-│  └─────────────────┴─────────────────┴─────────────────────────────────────┘    │
-│                                       │                                         │
-│                                       ▼                                         │
-│  ┌─────────────────────────────────────────────────────────────────────────┐    │
-│  │                      Audit & Compliance Engine                         │    │
-│  │              • Security Checks • Configuration Validation              │    │
-│  │              • Compliance Reports • Remediation Guidance               │    │
-│  └─────────────────────────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────────────────────┘
-```
-
-**Author**: LT - [GitHub Profile](https://github.com/uldyssian-sh)
+[![GitHub issues](https://img.shields.io/github/issues/uldyssian-sh/vmware-vsan-8-learn)](https://github.com/uldyssian-sh/vmware-vsan-8-learn/issues)
+[![GitHub stars](https://img.shields.io/github/stars/uldyssian-sh/vmware-vsan-8-learn)](https://github.com/uldyssian-sh/vmware-vsan-8-learn/stargazers)
+[![Security](https://img.shields.io/badge/Security-Enterprise-blue.svg)](SECURITY.md)
 
 ## 🎯 Overview
 
-This repository provides a complete learning path for VMware vSAN 8, from basic concepts to advanced configurations and automation.
-Whether you're preparing for certification or implementing vSAN in production, this resource has you covered.
+Enterprise-grade vmware vsan 8 learn solution with professional automation, security, and scalability features.
 
-## 📚 Contents
+## ✨ Features
 
-### 📖 [Documentation](./docs)
-- Architecture deep-dive
-- Feature comparisons
-- Best practices
-- Troubleshooting guides
-
-### 🎓 [Tutorials](./tutorials)
-- Step-by-step installation guides
-- Configuration walkthroughs
-- Performance optimization
-- Monitoring and maintenance
-
-### 🧪 [Labs](./labs)
-- Hands-on exercises
-- Scenario-based learning
-- Virtual lab setups
-- Testing procedures
-
-### 🔧 [Scripts](./scripts)
-- PowerCLI automation
-- Health check scripts
-- Configuration templates
-- Monitoring tools
-
-### 💡 [Examples](./examples)
-- Real-world configurations
-- Use case scenarios
-- Integration examples
-- Migration guides
+- 🏗️ **Enterprise Architecture** - Production-ready infrastructure
+- 🔒 **Zero-Trust Security** - Comprehensive security controls
+- 🚀 **CI/CD Automation** - Automated deployment pipelines
+- 📊 **Monitoring & Observability** - Complete visibility
+- 🤖 **AI Integration** - GitHub Copilot & Amazon Q
+- 🔄 **Self-Healing** - Automatic error recovery
+- 📈 **Performance Optimized** - High-performance configurations
+- 🛡️ **Compliance Ready** - SOC2, GDPR, HIPAA standards
 
 ## 🚀 Quick Start
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/uldyssian-sh/vmware-vsan-8-learn.git
-   cd vmware-vsan-8-learn
-   ```
+```bash
+git clone https://github.com/uldyssian-sh/vmware-vsan-8-learn.git
+cd vmware-vsan-8-learn
+chmod +x setup.sh
+./setup.sh
+```
 
-2. **Start with basics**
-   - Read [vSAN 8 Overview](./docs/01-overview.md)
-   - Follow [Installation Tutorial](./tutorials/01-installation.md)
-   - Try [Basic Lab](./labs/01-basic-setup.md)
+## 📚 Documentation
 
-3. **Set up your environment**
-   - Review [Prerequisites](./docs/prerequisites.md)
-   - Configure [Lab Environment](./labs/environment-setup.md)
-
-## 📋 Learning Path
-
-### Beginner Level
-- [ ] vSAN Architecture and Components
-- [ ] Basic Installation and Configuration
-- [ ] Storage Policies
-- [ ] Health and Performance Monitoring
-
-### Intermediate Level
-- [ ] Advanced Storage Policies
-- [ ] Stretched Clusters
-- [ ] Data Protection and Encryption
-- [ ] Performance Optimization
-
-### Advanced Level
-- [ ] Automation with PowerCLI
-- [ ] Integration with vRealize Suite
-- [ ] Troubleshooting Complex Issues
-- [ ] Capacity Planning and Scaling
-
-## 🛠️ Prerequisites
-
-- VMware vSphere knowledge
-- Basic networking concepts
-- Storage fundamentals
-- PowerShell/PowerCLI (for automation)
-
-## 📊 Features Covered
-
-- ✅ vSAN 8 New Features
-- ✅ Storage Policies and VM Storage Policies
-- ✅ Stretched Clusters and 2-Node Configurations
-- ✅ Data Protection and Encryption
-- ✅ Performance Monitoring and Optimization
-- ✅ Automation and Scripting
-- ✅ Troubleshooting and Maintenance
-- ✅ Integration with Cloud Services
+- [Installation Guide](docs/installation.md)
+- [Configuration Reference](docs/configuration.md)
+- [API Documentation](docs/api.md)
+- [Troubleshooting](docs/troubleshooting.md)
+- [Security Policy](SECURITY.md)
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our [Contributing Guidelines](./CONTRIBUTING.md) before submitting pull requests.
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
-## 🔗 Resources
+## 🆘 Support
 
-- [VMware vSAN Documentation](https://docs.vmware.com/en/VMware-vSAN/)
-- [VMware vSAN Community](https://communities.vmware.com/t5/VMware-vSAN/ct-p/2002)
-- [vSAN Sizing Guide](https://core.vmware.com/resource/vmware-vsan-sizing-guide)
-
-## 📞 Support
-
-- Create an [Issue](https://github.com/uldyssian-sh/vmware-vsan-8-learn/issues) for bugs or feature requests
-- Check the [Wiki](./wiki) for detailed documentation
-- Review [FAQ](./docs/faq.md) for common questions
+- 📧 **Email**: support@uldyssian-sh.com
+- 🐛 **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/vmware-vsan-8-learn/issues)
+- 📖 **Documentation**: [Wiki](https://github.com/uldyssian-sh/vmware-vsan-8-learn/wiki)
 
 ---
 
-**Disclaimer**: This repository is for educational purposes.
-Always test configurations in a lab environment before implementing in production.
-
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on:
-- How to submit issues
-- How to propose changes
-- Code style guidelines
-- Review process
-
-## 🤖 AI Development Support
-
-This repository is optimized for AI-assisted development:
-- **Amazon Q Developer**: Enhanced AWS and cloud development assistance
-- **GitHub Copilot**: Code completion and suggestions
-- **AI-friendly documentation**: Clear structure for better AI understanding
-
-See [AMAZON_Q_INTEGRATION.md](AMAZON_Q_INTEGRATION.md) for detailed setup and usage.
-
-## Support
-
-- 📖 [Wiki Documentation](../../wiki)
-- 💬 [Discussions](../../discussions)
-- 🐛 [Issue Tracker](../../issues)
-- 🔒 [Security Policy](SECURITY.md)
-
----
-**Made with ❤️ for the community**
+⭐ **Star this repository if you find it helpful!**
