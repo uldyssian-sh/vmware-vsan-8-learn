@@ -12,7 +12,7 @@ Set up a basic 3-node vSAN cluster and create your first virtual machine with cu
 ## Lab Environment
 - **Cluster Name**: vSAN-Lab-Cluster
 - **vSAN Network**: 192.168.100.0/24
-- **Hosts**: 
+- **Hosts**:
   - esxi-01.lab.local (192.168.100.11)
   - esxi-02.lab.local (192.168.100.12)
   - esxi-03.lab.local (192.168.100.13)
@@ -130,13 +130,13 @@ Get-VsanClusterHealth -Cluster "vSAN-Lab-Cluster"
 # Create performance policy
 $performanceRules = @{
     "VSAN.hostFailuresToTolerate" = "1"
-    "VSAN.stripeWidth" = "2" 
+    "VSAN.stripeWidth" = "2"
     "VSAN.proportionalCapacity" = "25"
 }
 
 New-VmStoragePolicy -Name "vSAN-Performance" -AnyOfRuleSets $performanceRules
 
-# Create capacity policy  
+# Create capacity policy
 $capacityRules = @{
     "VSAN.hostFailuresToTolerate" = "1"
     "VSAN.stripeWidth" = "1"

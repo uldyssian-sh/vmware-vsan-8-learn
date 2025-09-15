@@ -53,10 +53,10 @@ $vsanHosts = @(
 
 foreach ($hostInfo in $vsanHosts) {
     $vmhost = Get-VMHost $hostInfo.Name
-    
+
     # Create vSAN VMkernel port
     New-VMHostNetworkAdapter -VMHost $vmhost -PortGroup "vSAN-Production" -IP $hostInfo.VsanIP -SubnetMask "255.255.255.0" -Mtu 9000 -VsanTrafficEnabled:$true
-    
+
     Write-Host "Configured vSAN network for $($hostInfo.Name)"
 }
 ```
@@ -67,18 +67,18 @@ foreach ($hostInfo in $vsanHosts) {
 # Verify storage devices on all hosts
 function Test-StorageReadiness {
     param([array]$HostNames)
-    
+
     foreach ($hostName in $HostNames) {
         $vmhost = Get-VMHost $hostName
         $storageDevices = Get-VMHostDisk -VMHost $vmhost
-        
+
         $ssdDevices = $storageDevices | Where-Object {$_.ScsiLun.IsSsd -eq $true}
         $hddDevices = $storageDevices | Where-Object {$_.ScsiLun.IsSsd -eq $false}
-        
+
         Write-Host "Host: $hostName"
         Write-Host "  SSD Devices: $($ssdDevices.Count)"
         Write-Host "  HDD Devices: $($hddDevices.Count)"
-        
+
         # Verify minimum requirements
         if ($ssdDevices.Count -lt 2) {
             Write-Warning "Host $hostName has insufficient SSD devices for production"
@@ -117,24 +117,24 @@ Set-VsanClusterConfiguration -Cluster $cluster -VsanClusterConfigSpec $vsanSpec
 # Create optimized disk groups
 function New-ProductionDiskGroups {
     param([string]$ClusterName)
-    
+
     $cluster = Get-Cluster $ClusterName
     $hosts = Get-VMHost -Location $cluster
-    
+
     foreach ($vmhost in $hosts) {
         $availableDisks = Get-VsanDisk -VMHost $vmhost | Where-Object {$_.VsanDiskGroupUuid -eq $null}
-        
+
         # Separate cache and capacity devices
         $cacheDisks = $availableDisks | Where-Object {$_.IsSsd -eq $true -and $_.CapacityGB -lt 2000}
         $capacityDisks = $availableDisks | Where-Object {$_.CapacityGB -gt 2000}
-        
+
         # Create multiple disk groups for better performance
         $diskGroupsToCreate = [math]::Min($cacheDisks.Count, 2)  # Max 2 disk groups per host
-        
+
         for ($i = 0; $i -lt $diskGroupsToCreate; $i++) {
             $cacheDevice = $cacheDisks[$i]
             $capacityDevicesForGroup = $capacityDisks | Select-Object -Skip ($i * 3) -First 3
-            
+
             if ($capacityDevicesForGroup.Count -gt 0) {
                 New-VsanDiskGroup -VMHost $vmhost -SsdCanonicalName $cacheDevice.CanonicalName -HddCanonicalName $capacityDevicesForGroup.CanonicalName
                 Write-Host "Created disk group on $($vmhost.Name) with cache $($cacheDevice.CanonicalName)"
@@ -243,7 +243,7 @@ $vsanDatastore = Get-Datastore | Where-Object {$_.Type -eq "vsan"}
 
 foreach ($vmConfig in $productionVMs) {
     $storagePolicy = Get-VmStoragePolicy -Name $vmConfig.Policy
-    
+
     $vmSpec = @{
         Name = $vmConfig.Name
         Datastore = $vsanDatastore
@@ -253,7 +253,7 @@ foreach ($vmConfig in $productionVMs) {
         StoragePolicy = $storagePolicy
         GuestId = "ubuntu64Guest"
     }
-    
+
     New-VM @vmSpec
     Write-Host "Deployed VM: $($vmConfig.Name) with policy $($vmConfig.Policy)"
 }
@@ -265,25 +265,25 @@ foreach ($vmConfig in $productionVMs) {
 # Migrate existing VMs to vSAN
 function Move-VMsToVsan {
     param([string]$SourceDatastore, [string]$TargetPolicy)
-    
+
     $sourceDS = Get-Datastore $SourceDatastore
     $targetDS = Get-Datastore | Where-Object {$_.Type -eq "vsan"}
     $policy = Get-VmStoragePolicy $TargetPolicy
-    
+
     $vmsToMigrate = Get-VM -Datastore $sourceDS | Where-Object {$_.PowerState -eq "PoweredOn"}
-    
+
     foreach ($vm in $vmsToMigrate) {
         Write-Host "Migrating $($vm.Name) to vSAN..."
-        
+
         # Storage vMotion to vSAN with new policy
         Move-VM -VM $vm -Datastore $targetDS -StoragePolicy $policy -RunAsync
-        
+
         # Wait for migration to complete
         do {
             Start-Sleep 30
             $task = Get-Task | Where-Object {$_.Description -like "*$($vm.Name)*" -and $_.State -eq "Running"}
         } while ($task)
-        
+
         Write-Host "Migration completed for $($vm.Name)"
     }
 }
@@ -354,20 +354,20 @@ $backupConfig = @{
 # Create configuration backup script
 function Backup-VsanConfiguration {
     param([string]$ClusterName, [string]$BackupPath)
-    
+
     $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
     $backupFolder = Join-Path $BackupPath "vsan-backup-$timestamp"
     New-Item -ItemType Directory -Path $backupFolder -Force
-    
+
     # Export cluster configuration
     $cluster = Get-Cluster $ClusterName
     $vsanConfig = Get-VsanClusterConfiguration -Cluster $cluster
     $vsanConfig | Export-Clixml -Path "$backupFolder\cluster-config.xml"
-    
+
     # Export storage policies
     $policies = Get-VmStoragePolicy | Where-Object {$_.Name -like "PROD-*"}
     $policies | Export-Clixml -Path "$backupFolder\storage-policies.xml"
-    
+
     # Export VM configurations
     $vms = Get-VM -Location $cluster
     $vmConfigs = foreach ($vm in $vms) {
@@ -379,7 +379,7 @@ function Backup-VsanConfiguration {
         }
     }
     $vmConfigs | Export-Clixml -Path "$backupFolder\vm-configs.xml"
-    
+
     Write-Host "Configuration backup completed: $backupFolder"
 }
 
@@ -395,37 +395,37 @@ function Backup-VsanConfiguration {
 # Validate production performance targets
 function Test-ProductionPerformance {
     param([string]$ClusterName)
-    
+
     $cluster = Get-Cluster $ClusterName
     $testResults = @{}
-    
+
     # Test IOPS
     $iopsStats = Get-Stat -Entity $cluster -Stat @(
         "vsan.dom.compmgr.readIops.avg",
         "vsan.dom.compmgr.writeIops.avg"
     ) -MaxSamples 10
-    
+
     $totalIOPS = ($iopsStats | Measure-Object Value -Sum).Sum
     $testResults.IOPS = $totalIOPS
-    
+
     # Test Latency
     $latencyStats = Get-Stat -Entity $cluster -Stat "vsan.dom.compmgr.readLatency.avg" -MaxSamples 10
     $avgLatency = ($latencyStats | Measure-Object Value -Average).Average
     $testResults.LatencyMs = $avgLatency
-    
+
     # Validate against requirements
     $requirements = @{
         MinIOPS = 50000
         MaxLatencyMs = 2
     }
-    
+
     Write-Host "Performance Test Results:"
     Write-Host "  Total IOPS: $($testResults.IOPS) (Required: $($requirements.MinIOPS))"
     Write-Host "  Average Latency: $($testResults.LatencyMs)ms (Required: <$($requirements.MaxLatencyMs)ms)"
-    
+
     $passed = $testResults.IOPS -ge $requirements.MinIOPS -and $testResults.LatencyMs -le $requirements.MaxLatencyMs
     Write-Host "  Performance Test: $(if($passed){'PASSED'}else{'FAILED'})" -ForegroundColor $(if($passed){'Green'}else{'Red'})
-    
+
     return $testResults
 }
 

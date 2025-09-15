@@ -54,7 +54,7 @@ sudo yum install -y fio iozone
 # Sequential write test (4MB blocks)
 fio --name=seq-write --rw=write --bs=4M --size=10G --numjobs=1 --runtime=300 --group_reporting
 
-# Sequential read test (4MB blocks)  
+# Sequential read test (4MB blocks)
 fio --name=seq-read --rw=read --bs=4M --size=10G --numjobs=1 --runtime=300 --group_reporting
 ```
 
@@ -85,17 +85,17 @@ Set-VsanClusterConfiguration -Cluster $cluster -VsanClusterConfigSpec $spec
 # Monitor vSAN performance during tests
 function Monitor-VsanPerformance {
     param([string]$ClusterName, [int]$DurationMinutes = 10)
-    
+
     $endTime = (Get-Date).AddMinutes($DurationMinutes)
-    
+
     while ((Get-Date) -lt $endTime) {
         $stats = Get-Stat -Entity (Get-Cluster $ClusterName) -Stat @(
             "vsan.dom.compmgr.readIops.avg",
-            "vsan.dom.compmgr.writeIops.avg", 
+            "vsan.dom.compmgr.writeIops.avg",
             "vsan.dom.compmgr.readLatency.avg",
             "vsan.dom.compmgr.writeLatency.avg"
         ) -MaxSamples 1
-        
+
         foreach ($stat in $stats) {
             Write-Host "$($stat.MetricId): $([math]::Round($stat.Value, 2))"
         }
@@ -133,7 +133,7 @@ $vsanDS = Get-Datastore | Where-Object {$_.Type -eq "vsan"}
 $dsStats = Get-Stat -Entity $vsanDS -Stat @(
     "datastore.read.average",
     "datastore.write.average",
-    "datastore.totalReadLatency.average", 
+    "datastore.totalReadLatency.average",
     "datastore.totalWriteLatency.average"
 ) -Start (Get-Date).AddHours(-1)
 
@@ -145,7 +145,7 @@ foreach ($host in $hosts) {
         "mem.usage.average",
         "net.usage.average"
     ) -Start (Get-Date).AddHours(-1)
-    
+
     $perfData += @{
         Host = $host.Name
         Stats = $hostStats
@@ -159,17 +159,17 @@ foreach ($host in $hosts) {
 # Check cache hit ratios
 function Get-VsanCacheStats {
     param([string]$ClusterName)
-    
+
     $cluster = Get-Cluster $ClusterName
     $hosts = Get-VMHost -Location $cluster
-    
+
     foreach ($host in $hosts) {
         $cacheStats = Get-Stat -Entity $host -Stat @(
             "vsan.dom.compmgr.cacheHitRate.avg",
             "vsan.dom.compmgr.readCacheHitRate.avg",
             "vsan.dom.compmgr.writeCacheHitRate.avg"
         ) -MaxSamples 10
-        
+
         Write-Host "Host: $($host.Name)"
         foreach ($stat in $cacheStats) {
             Write-Host "  $($stat.MetricId): $([math]::Round($stat.Value, 2))%"
@@ -186,20 +186,20 @@ Get-VsanCacheStats -ClusterName "vSAN-Lab-Cluster"
 # Check vSAN network performance
 function Test-VsanNetworkPerformance {
     param([string]$ClusterName)
-    
+
     $cluster = Get-Cluster $ClusterName
     $hosts = Get-VMHost -Location $cluster
-    
+
     foreach ($host in $hosts) {
         $vsanVmk = Get-VMHostNetworkAdapter -VMHost $host | Where-Object {$_.VsanTrafficEnabled}
-        
+
         if ($vsanVmk) {
             $netStats = Get-Stat -Entity $host -Stat @(
                 "net.usage.average",
                 "net.packetsRx.summation",
                 "net.packetsTx.summation"
             ) -MaxSamples 5
-            
+
             Write-Host "Host: $($host.Name) - vSAN Network: $($vsanVmk.IP)"
             foreach ($stat in $netStats) {
                 Write-Host "  $($stat.MetricId): $($stat.Value)"
@@ -225,7 +225,7 @@ $optimizedPolicies = @{
         "VSAN.proportionalCapacity" = "25"
     }
     "LowLatency" = @{
-        "VSAN.hostFailuresToTolerate" = "1" 
+        "VSAN.hostFailuresToTolerate" = "1"
         "VSAN.stripeWidth" = "2"
         "VSAN.cacheReservation" = "75"
         "VSAN.proportionalCapacity" = "100"
@@ -251,7 +251,7 @@ foreach ($host in $hosts) {
         Set-VMHostNetworkAdapter -VirtualNic $vsanVmk -Mtu 9000 -Confirm:$false
         Write-Host "Enabled jumbo frames on $($host.Name)"
     }
-    
+
     # Optimize TCP/IP stack
     $tcpipStack = Get-VMHostNetworkStack -VMHost $host -Id "vsan"
     if ($tcpipStack) {
@@ -267,21 +267,21 @@ foreach ($host in $hosts) {
 # Check and optimize disk group configuration
 function Optimize-VsanDiskGroups {
     param([string]$ClusterName)
-    
+
     $cluster = Get-Cluster $ClusterName
     $hosts = Get-VMHost -Location $cluster
-    
+
     foreach ($host in $hosts) {
         $diskGroups = Get-VsanDiskGroup -VMHost $host
-        
+
         Write-Host "Host: $($host.Name)"
         foreach ($dg in $diskGroups) {
             $cacheSize = $dg.CacheDevice.CapacityGB
             $capacitySize = ($dg.CapacityDevice | Measure-Object CapacityGB -Sum).Sum
             $ratio = [math]::Round($capacitySize / $cacheSize, 1)
-            
+
             Write-Host "  Disk Group: Cache=$($cacheSize)GB, Capacity=$($capacitySize)GB, Ratio=1:$ratio"
-            
+
             if ($ratio -gt 10) {
                 Write-Host "  WARNING: Cache to capacity ratio exceeds 1:10 recommendation" -ForegroundColor Yellow
             }
@@ -304,24 +304,24 @@ After optimization, repeat the performance tests from Exercise 1 and compare res
 # Generate performance comparison report
 function New-PerformanceReport {
     param([array]$BeforeData, [array]$AfterData, [string]$OutputPath)
-    
+
     $report = @{
         TestDate = Get-Date
         Improvements = @()
     }
-    
+
     # Compare IOPS
     $beforeIOPS = ($BeforeData | Where-Object {$_.Metric -eq "IOPS"}).Value
     $afterIOPS = ($AfterData | Where-Object {$_.Metric -eq "IOPS"}).Value
     $improvement = [math]::Round((($afterIOPS - $beforeIOPS) / $beforeIOPS) * 100, 2)
-    
+
     $report.Improvements += @{
         Metric = "IOPS"
         Before = $beforeIOPS
         After = $afterIOPS
         ImprovementPercent = $improvement
     }
-    
+
     $report | ConvertTo-Json -Depth 3 | Out-File $OutputPath
     Write-Host "Performance report saved to $OutputPath"
 }
@@ -389,15 +389,15 @@ $monitoringScript | Out-File "Monitor-VsanPerformance.ps1"
 # Quick performance health check
 function Test-VsanPerformanceHealth {
     $cluster = Get-Cluster "vSAN-Lab-Cluster"
-    
+
     # Check cache hit ratios
     $cacheHit = Get-Stat -Entity $cluster -Stat "vsan.dom.compmgr.cacheHitRate.avg" -MaxSamples 1
     Write-Host "Cache Hit Ratio: $([math]::Round($cacheHit.Value, 2))%"
-    
+
     # Check congestion
     $congestion = Get-Stat -Entity $cluster -Stat "vsan.dom.compmgr.congestion.avg" -MaxSamples 1
     Write-Host "Congestion Level: $([math]::Round($congestion.Value, 2))"
-    
+
     # Check latency
     $latency = Get-Stat -Entity $cluster -Stat "vsan.dom.compmgr.readLatency.avg" -MaxSamples 1
     Write-Host "Average Read Latency: $([math]::Round($latency.Value, 2))ms"

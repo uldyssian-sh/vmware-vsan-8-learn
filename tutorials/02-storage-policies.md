@@ -85,7 +85,7 @@ New-VmStoragePolicy -Name "vSAN-MissionCritical" -Description "Maximum protectio
 
 #### Availability Settings
 - **Failures to tolerate**: 1-3 (based on cluster size)
-- **Failure tolerance method**: 
+- **Failure tolerance method**:
   - RAID-1: Better performance, more space usage
   - RAID-5: Space efficient, requires 4+ hosts
   - RAID-6: Maximum protection, requires 6+ hosts
