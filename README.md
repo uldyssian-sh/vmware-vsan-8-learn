@@ -1,5 +1,22 @@
 # VMware vSAN 8 Learning Repository
 
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support](#support)
+
+## Prerequisites
+
+Before using this project, ensure you have:
+- Required tools and dependencies
+- Proper access credentials
+- System requirements met
+
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![VMware vSAN](https://img.shields.io/badge/VMware-vSAN%208-blue.svg)](https://www.vmware.com/products/vsan.html)
 [![Documentation](https://img.shields.io/badge/docs-wiki-green.svg)](./wiki)
@@ -167,3 +184,21 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 **Disclaimer**: This repository is for educational purposes.
 Always test configurations in a lab environment before implementing in production.
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on:
+- How to submit issues
+- How to propose changes
+- Code style guidelines
+- Review process
+
+## Support
+
+- 📖 [Wiki Documentation](../../wiki)
+- 💬 [Discussions](../../discussions)
+- 🐛 [Issue Tracker](../../issues)
+- 🔒 [Security Policy](SECURITY.md)
+
+---
+**Made with ❤️ for the community**
