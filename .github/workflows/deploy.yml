@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -10,46 +10,15 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      
-      - name: Build site
-        run: |
-          mkdir -p _site
-          echo "<!DOCTYPE html>
-          <html>
-          <head>
-              <title>vmware-vsan-8-learn</title>
-              <meta charset='UTF-8'>
-          </head>
-          <body>
-              <h1>vmware-vsan-8-learn</h1>
-              <p>✅ Successfully deployed!</p>
-              <p>Repository: <a href='https://github.com/uldyssian-sh/vmware-vsan-8-learn'>uldyssian-sh/vmware-vsan-8-learn</a></p>
-          </body>
-          </html>" > _site/index.html
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: development
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    - uses: actions/checkout@v4
+    - uses: actions/configure-pages@v4
+    - name: Create site
+      run: |
+        mkdir _site
+        echo '<h1>vmware-vsan-8-learn</h1><p>Success!</p>' > _site/index.html
+    - uses: actions/upload-pages-artifact@v3
+    - uses: actions/deploy-pages@v4
