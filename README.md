@@ -1,11 +1,11 @@
 # VMware vSAN 8 Learning Resources
 
 <div align="center">
-  <img src="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/images/gallery/thumbnails/products/vmware-vsan-logo-tn.jpg" alt="vSAN 8" width="350"/>
   
-  [![vSAN 8](https://img.shields.io/badge/vSAN-8.0-00A1C9.svg)](https://www.vmware.com/products/vsan.html)
-  [![Learning](https://img.shields.io/badge/Learning-Resources-blue.svg)](https://www.vmware.com/education-services)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![vSAN 8](https://img.shields.io/badge/VMware-vSAN_8.0-00A1C9.svg?style=for-the-badge&logo=vmware)](https://www.vmware.com/products/vsan.html)
+  [![Learning](https://img.shields.io/badge/Learning-Resources-blue.svg?style=for-the-badge)](https://www.vmware.com/education-services)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+  
 </div>
 
 ## 📚 Overview
