@@ -1,7 +1,7 @@
 # VMware vSAN 8 Learning Resources
 
 <div align="center">
-  <img src="https://blogs.vmware.com/virtualblocks/files/2019/09/vSAN-Logo.png" alt="vSAN 8" width="350"/>
+  <img src="https://www.vmware.com/content/dam/digitalmarketing/vmware/en/images/gallery/thumbnails/products/vmware-vsan-logo-tn.jpg" alt="vSAN 8" width="350"/>
   
   [![vSAN 8](https://img.shields.io/badge/vSAN-8.0-00A1C9.svg)](https://www.vmware.com/products/vsan.html)
   [![Learning](https://img.shields.io/badge/Learning-Resources-blue.svg)](https://www.vmware.com/education-services)
@@ -40,20 +40,18 @@ git clone https://github.com/uldyssian-sh/vmware-vsan-8-learn.git
 cd vmware-vsan-8-learn/labs
 
 # Start nested lab environment
-./setup-vsan-lab.sh --nodes 4 --version 8.0
+python main.py
 
-# Access lab guide
-open lab-guides/vsan-fundamentals.html
+# Access lab guides
+open labs/01-basic-setup.md
 ```
 
 ## 📖 Study Materials
 
 | Topic | Lab Guide | Difficulty | Duration |
 |-------|-----------|------------|----------|
-| vSAN Basics | [Lab 1](labs/01-basics/) | 🟢 Beginner | 2 hours |
-| Storage Policies | [Lab 2](labs/02-policies/) | 🟡 Intermediate | 3 hours |
-| Stretched Clusters | [Lab 3](labs/03-stretched/) | 🔴 Advanced | 4 hours |
-| Troubleshooting | [Lab 4](labs/04-troubleshooting/) | 🔴 Advanced | 3 hours |
+| vSAN Basics | [Lab 1](labs/01-basic-setup.md) | 🟢 Beginner | 2 hours |
+| Performance Testing | [Lab 2](labs/02-performance-testing.md) | 🟡 Intermediate | 3 hours |
 
 ## 🏆 Certification Path
 
@@ -77,7 +75,18 @@ open lab-guides/vsan-fundamentals.html
 
 ## 📊 vSAN Architecture Diagram
 
-![vSAN Architecture](https://via.placeholder.com/800x500/00A1C9/FFFFFF?text=vSAN+8+Architecture+Diagram)
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    vSAN 8 Architecture                     │
+├─────────────────────────────────────────────────────────────┤
+│  ESXi Host 1    │  ESXi Host 2    │  ESXi Host 3          │
+│  ┌───────────┐  │  ┌───────────┐  │  ┌───────────┐        │
+│  │ vSAN Node │  │  │ vSAN Node │  │  │ vSAN Node │        │
+│  │ Cache SSD │  │  │ Cache SSD │  │  │ Cache SSD │        │
+│  │Capacity HD│  │  │Capacity HD│  │  │Capacity HD│        │
+│  └───────────┘  │  └───────────┘  │  └───────────┘        │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ## 🔧 Lab Environment Requirements
 
