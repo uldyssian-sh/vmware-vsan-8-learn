@@ -41,7 +41,7 @@ jobs:
         <h1>vmware-vsan-8-learn</h1>
         <p class="status">✅ Development deployment successful</p>
         <p><strong>Environment:</strong> Development</p>
-        <p><strong>Repository:</strong> uldyssian-sh/vmware-vsan-8-learn</p>
+        <p><strong>Repository:</strong> ${{ github.repository }}</p>
         <p><strong>Deployed:</strong> <span id="time"></span></p>
         <div class="links">
             <a href="https://github.com/uldyssian-sh/vmware-vsan-8-learn">View Repository</a>

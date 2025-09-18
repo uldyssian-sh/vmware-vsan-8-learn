@@ -67,6 +67,14 @@ open lab-guides/vsan-fundamentals.html
 - **Training**: vSphere: Design Workshop
 - **Exam**: 3V0-21.23
 
+## 📖 Documentation
+
+- [Overview](docs/01-overview.md)
+- [Prerequisites](docs/prerequisites.md)
+- [FAQ](docs/faq.md)
+- [Examples](examples/)
+- [Labs](labs/)
+
 ## 📊 vSAN Architecture Diagram
 
 ![vSAN Architecture](https://via.placeholder.com/800x500/00A1C9/FFFFFF?text=vSAN+8+Architecture+Diagram)

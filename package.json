@@ -1,5 +1,5 @@
 {
-  "name": "vmware-vsan-8-learn",
+  "name": "@uldyssian-sh/vmware-vsan-8-learn",
   "version": "1.0.0",
   "description": "Enterprise automation and management solution",
   "main": "index.js",
