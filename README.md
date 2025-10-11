@@ -110,3 +110,13 @@ open labs/01-basic-setup.md
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
+
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/vmware-vsan-8-learn/issues)
+- **Security**: [Security Policy](SECURITY.md)
+- **Contributing**: [Contributing Guidelines](CONTRIBUTING.md)
+
+---
+
+**⭐ Star this repository if you find it helpful!**
