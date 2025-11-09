@@ -253,3 +253,4 @@ finally {
         Write-Log "Disconnected from vCenter" "INFO"
     }
 }# Updated Sun Nov  9 12:52:39 CET 2025
+# Updated Sun Nov  9 12:56:07 CET 2025

@@ -251,3 +251,4 @@ Get-VM -Location $sourceCluster | Move-VM -Destination $targetCluster -Datastore
 **Remember**: These best practices should be adapted to your specific environment and requirements. Always test changes in a lab environment before implementing in production.# Updated 20251109_123835
 # Updated Sun Nov  9 12:49:24 CET 2025
 # Updated Sun Nov  9 12:52:39 CET 2025
+# Updated Sun Nov  9 12:56:07 CET 2025
