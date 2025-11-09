@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 # vSAN Performance Monitoring Script
 param(
     [Parameter(Mandatory=$true)]

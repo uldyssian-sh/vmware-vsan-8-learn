@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 # vSAN Capacity Planning and Forecasting Script
 param(
     [Parameter(Mandatory=$true)]

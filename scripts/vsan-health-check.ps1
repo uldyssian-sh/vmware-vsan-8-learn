@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 # VMware vSAN Health Check Script
 # This script performs comprehensive health checks on vSAN clusters
 

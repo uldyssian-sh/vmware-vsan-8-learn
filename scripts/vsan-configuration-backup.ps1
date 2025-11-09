@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 # VMware vSAN Configuration Backup Script
 # This script backs up vSAN cluster configuration for disaster recovery
 
