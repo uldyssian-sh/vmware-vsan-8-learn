@@ -114,3 +114,4 @@ open labs/01-basic-setup.md
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details.
+# Documentation updated Sun Nov  9 14:43:37 CET 2025

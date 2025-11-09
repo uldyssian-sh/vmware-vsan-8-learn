@@ -286,4 +286,4 @@ Get-VM Test-* | Get-VmStoragePolicyCompliance
 ## Additional Resources
 
 - [vSAN Storage Policy Guide](https://docs.vmware.com/en/VMware-vSAN/8.0/vsan-administration/GUID-08911FD3-2462-4C1C-AE81-0D4DBC8F7990.html)
-- [Storage Policy Best Practices](https://core.vmware.com/resource/vmware-vsan-storage-policy-best-practices)
+- [Storage Policy Best Practices](https://core.vmware.com/resource/vmware-vsan-storage-policy-best-practices)# Documentation updated Sun Nov  9 14:43:37 CET 2025

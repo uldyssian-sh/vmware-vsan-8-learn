@@ -262,4 +262,4 @@ Remove-VmStoragePolicy -StoragePolicy "vSAN-Capacity" -Confirm:$false
 
 - [vSAN Planning and Deployment Guide](https://docs.vmware.com/en/VMware-vSAN/8.0/vsan-planning/)
 - [vSAN Troubleshooting Guide](https://docs.vmware.com/en/VMware-vSAN/8.0/vsan-troubleshooting/)
-- [vSAN Performance Best Practices](https://core.vmware.com/resource/vmware-vsan-performance-best-practices)
+- [vSAN Performance Best Practices](https://core.vmware.com/resource/vmware-vsan-performance-best-practices)# Documentation updated Sun Nov  9 14:43:37 CET 2025
