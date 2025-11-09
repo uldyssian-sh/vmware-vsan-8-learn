@@ -1,3 +1,7 @@
+[![AI-Powered](https://img.shields.io/badge/AI-Powered-blue?style=flat-square&logo=openai)](https://github.com/features/copilot)
+[![CodeQL](https://img.shields.io/badge/CodeQL-AI-green?style=flat-square)](https://github.com/uldyssian-sh/vmware-vsan-8-learn/actions)
+
+
 # VMware vSAN 8 Learning Resources
 
 <div align="center">
