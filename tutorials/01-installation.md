@@ -204,4 +204,3 @@ Get-VsanStat -Entity $vm -StartTime (Get-Date).AddHours(-1) -EndTime (Get-Date)
 
 - [vSAN Health Service](https://docs.vmware.com/en/VMware-vSAN/8.0/vsan-monitoring/GUID-F5B3B9F5-8B5C-4B5C-8B5C-8B5C8B5C8B5C.html)
 - [vSAN Performance Troubleshooting](https://docs.vmware.com/en/VMware-vSAN/8.0/vsan-troubleshooting/)
-- [VMware KB Articles](https://kb.vmware.com/)# Documentation updated Sun Nov  9 14:43:37 CET 2025

@@ -78,4 +78,3 @@ Thank you for your interest in contributing to this project! This document provi
 - Check existing documentation first
 - Be specific about your environment and issue
 
-Thank you for contributing to the VMware vSAN learning community!# Documentation updated Sun Nov  9 14:43:37 CET 2025

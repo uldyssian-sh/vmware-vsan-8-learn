@@ -123,4 +123,3 @@ We welcome contributions to improve this wiki:
 
 ---
 
-**Note**: This wiki is maintained by the community. Always verify information with official VMware documentation for production deployments.# Documentation updated Sun Nov  9 14:43:37 CET 2025

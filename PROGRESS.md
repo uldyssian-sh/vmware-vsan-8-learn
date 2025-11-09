@@ -26,4 +26,3 @@
 - Prepare for certification exam
 
 ---
-*Last Updated: 2024-12-26*# Documentation updated Sun Nov  9 14:43:37 CET 2025

@@ -423,4 +423,3 @@ Test-VsanPerformanceHealth
 ## Additional Resources
 
 - [vSAN Performance Troubleshooting](https://docs.vmware.com/en/VMware-vSAN/8.0/vsan-troubleshooting/GUID-0C7C5C7C-7C7C-7C7C-7C7C-7C7C7C7C7C7C.html)
-- [vSAN Observer Guide](https://core.vmware.com/resource/vsan-observer-guide)# Documentation updated Sun Nov  9 14:43:37 CET 2025

@@ -45,4 +45,3 @@ Add any other context or screenshots about the feature request here.
 - [ ] Yes, I can help implement this
 - [ ] Yes, I can help test this
 - [ ] Yes, I can help document this
-- [ ] No, but I would like to see it implemented# Documentation updated Sun Nov  9 14:43:37 CET 2025
