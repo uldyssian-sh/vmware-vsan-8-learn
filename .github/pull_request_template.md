@@ -14,10 +14,8 @@ Brief description of the changes in this PR.
 
 ## Changes Made
 - [ ] Added new tutorial/lab
-- [ ] Updated existing documentation
 - [ ] Fixed PowerShell script issues
 - [ ] Added new configuration templates
-- [ ] Updated wiki content
 - [ ] Fixed broken links
 - [ ] Other: ___________
 

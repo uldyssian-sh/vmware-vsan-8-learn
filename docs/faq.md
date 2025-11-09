@@ -131,4 +131,3 @@ Use vMotion and Storage vMotion for live migration.
 - vSAN Health Service logs
 - ESXi host logs
 - vCenter Server logs
-- Support bundle from affected hosts# Updated 20251109_123835
