@@ -2,9 +2,7 @@
 
 <div align="center">
   
-  [![vSAN 8](https://img.shields.io/badge/VMware-vSAN_8.0-00A1C9.svg?style=for-the-badge&logo=vmware)](https://www.vmware.com/products/vsan.html)
   [![Learning](https://img.shields.io/badge/Learning-Resources-blue.svg?style=for-the-badge)](https://www.vmware.com/education-services)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
   
 </div>
 
