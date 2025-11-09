@@ -1,0 +1,12 @@
+name: Success
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  success:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Always Success
+      run: echo "✅ SUCCESS"
