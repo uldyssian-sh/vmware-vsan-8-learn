@@ -133,3 +133,4 @@ After verifying all prerequisites:
 - [vSAN Hardware Requirements](https://docs.vmware.com/en/VMware-vSAN/8.0/vsan-planning/GUID-4D436B9C-5F46-4718-9B1E-5BF7F3B982A9.html)
 - [vSAN Sizing Calculator](https://core.vmware.com/resource/vmware-vsan-sizing-guide)# Updated 20251109_123835
 # Updated Sun Nov  9 12:49:24 CET 2025
+# Updated Sun Nov  9 12:52:39 CET 2025

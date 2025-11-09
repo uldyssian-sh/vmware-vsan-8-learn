@@ -478,3 +478,4 @@ $perfResults = Test-ProductionPerformance -ClusterName "PROD-vSAN-Cluster"
    - Hardware refresh planning
 
 This production deployment example provides a comprehensive template for enterprise vSAN implementations, ensuring high availability, performance, and security requirements are met.# Updated Sun Nov  9 12:49:24 CET 2025
+# Updated Sun Nov  9 12:52:39 CET 2025

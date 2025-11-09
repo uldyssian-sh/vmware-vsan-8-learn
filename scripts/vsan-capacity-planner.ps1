@@ -400,4 +400,4 @@ finally {
     if ($global:DefaultVIServers.Count -gt 0) {
         Disconnect-VIServer -Server * -Confirm:$false
     }
-}
+}# Updated Sun Nov  9 12:52:39 CET 2025

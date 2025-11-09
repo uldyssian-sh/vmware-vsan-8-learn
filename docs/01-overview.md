@@ -113,3 +113,4 @@ VMware vSAN (Virtual Storage Area Network) is a software-defined storage solutio
 - [vSAN Sizing Guide](https://core.vmware.com/resource/vmware-vsan-sizing-guide)
 - [vSAN Design Guide](https://core.vmware.com/resource/vmware-vsan-design-guide)# Updated 20251109_123835
 # Updated Sun Nov  9 12:49:24 CET 2025
+# Updated Sun Nov  9 12:52:39 CET 2025

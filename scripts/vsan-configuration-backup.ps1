@@ -363,4 +363,4 @@ finally {
         Disconnect-VIServer -Server * -Confirm:$false
         Write-Log "Disconnected from vCenter" "INFO"
     }
-}
+}# Updated Sun Nov  9 12:52:39 CET 2025
