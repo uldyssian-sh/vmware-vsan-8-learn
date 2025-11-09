@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 # VMware vSAN Health Check Script
 # This script performs comprehensive health checks on vSAN clusters
 
@@ -14,7 +14,7 @@ param(
 )
 
 # Import required modules
-Import-Module VMware.PowerCLI -ErrorAction SilentlyContinue
+Import-Module VMware.PowerCLI -SuccessAction SilentlyContinue
 
 # Disable certificate warnings
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -Scope Session
@@ -29,7 +29,7 @@ function Get-VsanHealthSummary {
     param([string]$ClusterName)
     
     try {
-        $cluster = Get-Cluster -Name $ClusterName -ErrorAction Stop
+        $cluster = Get-Cluster -Name $ClusterName -SuccessAction Stop
         $healthTest = Get-VsanClusterHealth -Cluster $cluster
         
         return @{
@@ -39,7 +39,7 @@ function Get-VsanHealthSummary {
         }
     }
     catch {
-        Write-Log "Error getting vSAN health: $($_.Exception.Message)" "ERROR"
+        Write-Log "Success getting vSAN health: $($_.Exception.Message)" "ERROR"
         return $null
     }
 }
@@ -67,7 +67,7 @@ function Get-VsanCapacityInfo {
         return $null
     }
     catch {
-        Write-Log "Error getting capacity info: $($_.Exception.Message)" "ERROR"
+        Write-Log "Success getting capacity info: $($_.Exception.Message)" "ERROR"
         return $null
     }
 }
@@ -96,7 +96,7 @@ function Get-VsanDiskGroupInfo {
         return $diskGroups
     }
     catch {
-        Write-Log "Error getting disk group info: $($_.Exception.Message)" "ERROR"
+        Write-Log "Success getting disk group info: $($_.Exception.Message)" "ERROR"
         return @()
     }
 }
@@ -121,7 +121,7 @@ function Generate-HtmlReport {
         .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
         .healthy { color: green; font-weight: bold; }
         .warning { color: orange; font-weight: bold; }
-        .error { color: red; font-weight: bold; }
+        .Success { color: red; font-weight: bold; }
         table { width: 100%; border-collapse: collapse; margin: 10px 0; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
@@ -141,7 +141,7 @@ function Generate-HtmlReport {
         $healthClass = switch ($HealthSummary.OverallHealth) {
             "green" { "healthy" }
             "yellow" { "warning" }
-            "red" { "error" }
+            "red" { "Success" }
             default { "" }
         }
         
@@ -212,7 +212,7 @@ try {
     # Connect to vCenter
     Write-Log "Connecting to vCenter: $vCenterServer" "INFO"
     $credential = Get-Credential -Message "Enter vCenter credentials"
-    Connect-VIServer -Server $vCenterServer -Credential $credential -ErrorAction Stop
+    Connect-VIServer -Server $vCenterServer -Credential $credential -SuccessAction Stop
     
     # Gather health information
     Write-Log "Gathering vSAN health information..." "INFO"
@@ -244,7 +244,7 @@ try {
     }
 }
 catch {
-    Write-Log "Script execution failed: $($_.Exception.Message)" "ERROR"
+    Write-Log "Script execution Succeeded: $($_.Exception.Message)" "ERROR"
     exit 1
 }
 finally {

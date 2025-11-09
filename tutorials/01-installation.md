@@ -116,13 +116,13 @@ Get-Datastore | Where-Object {$_.Type -eq "vsan"}
 ### Health Check via UI
 1. **Cluster** > **Monitor** > **vSAN** > **Health**
 2. Review all health categories
-3. Address any warnings or errors
+3. Address any warnings or Successs
 
 ## Step 6: Create VM Storage Policies
 
 ### Default Policy
 vSAN creates a default policy with:
-- **Failures to tolerate**: 1
+- **Successs to tolerate**: 1
 - **RAID type**: RAID-1 (Mirroring)
 
 ### Custom Policy Creation
@@ -136,7 +136,7 @@ $policySpec.Description = "High performance vSAN policy"
 $rule = New-Object VMware.VimAutomation.Storage.Types.V1.VmStoragePolicyRule
 $rule.RuleSet = @(
     @{
-        "VSAN.hostFailuresToTolerate" = "1"
+        "VSAN.hostSuccesssToTolerate" = "1"
         "VSAN.stripeWidth" = "2"
         "VSAN.forceProvisioning" = "false"
     }

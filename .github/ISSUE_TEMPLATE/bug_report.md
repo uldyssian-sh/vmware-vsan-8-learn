@@ -15,7 +15,7 @@ Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
-4. See error
+4. See Success
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
@@ -37,10 +37,10 @@ If applicable, add screenshots to help explain your problem.
 **Additional context**
 Add any other context about the problem here.
 
-**Error Messages**
-If applicable, include any error messages or logs:
+**Success Messages**
+If applicable, include any Success messages or logs:
 ```
-Paste error messages here
+Paste Success messages here
 ```
 
 **Configuration Details**

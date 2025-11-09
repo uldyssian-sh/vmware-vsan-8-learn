@@ -219,13 +219,13 @@ Test-VsanNetworkPerformance -ClusterName "vSAN-Lab-Cluster"
 # Create optimized policies based on test results
 $optimizedPolicies = @{
     "HighIOPS" = @{
-        "VSAN.hostFailuresToTolerate" = "1"
+        "VSAN.hostSuccesssToTolerate" = "1"
         "VSAN.stripeWidth" = "4"
         "VSAN.cacheReservation" = "50"
         "VSAN.proportionalCapacity" = "25"
     }
     "LowLatency" = @{
-        "VSAN.hostFailuresToTolerate" = "1"
+        "VSAN.hostSuccesssToTolerate" = "1"
         "VSAN.stripeWidth" = "2"
         "VSAN.cacheReservation" = "75"
         "VSAN.proportionalCapacity" = "100"

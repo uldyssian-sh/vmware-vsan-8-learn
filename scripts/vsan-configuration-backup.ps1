@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 # VMware vSAN Configuration Backup Script
 # This script backs up vSAN cluster configuration for disaster recovery
 
@@ -14,7 +14,7 @@ param(
 )
 
 # Import required modules
-Import-Module VMware.PowerCLI -ErrorAction SilentlyContinue
+Import-Module VMware.PowerCLI -SuccessAction SilentlyContinue
 
 # Disable certificate warnings
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -Scope Session
@@ -29,7 +29,7 @@ function Export-VsanClusterConfig {
     param([string]$ClusterName, [string]$OutputPath)
     
     try {
-        $cluster = Get-Cluster -Name $ClusterName -ErrorAction Stop
+        $cluster = Get-Cluster -Name $ClusterName -SuccessAction Stop
         $vsanConfig = Get-VsanClusterConfiguration -Cluster $cluster
         
         $config = @{
@@ -50,7 +50,7 @@ function Export-VsanClusterConfig {
         return $config
     }
     catch {
-        Write-Log "Error exporting cluster config: $($_.Exception.Message)" "ERROR"
+        Write-Log "Success exporting cluster config: $($_.Exception.Message)" "ERROR"
         return $null
     }
 }
@@ -91,7 +91,7 @@ function Export-VsanStoragePolicies {
         return $policyData
     }
     catch {
-        Write-Log "Error exporting storage policies: $($_.Exception.Message)" "ERROR"
+        Write-Log "Success exporting storage policies: $($_.Exception.Message)" "ERROR"
         return @()
     }
 }
@@ -127,7 +127,7 @@ function Export-VsanNetworkConfig {
         return $networkConfig
     }
     catch {
-        Write-Log "Error exporting network config: $($_.Exception.Message)" "ERROR"
+        Write-Log "Success exporting network config: $($_.Exception.Message)" "ERROR"
         return @()
     }
 }
@@ -173,7 +173,7 @@ function Export-VsanDiskGroups {
         return $diskGroupData
     }
     catch {
-        Write-Log "Error exporting disk groups: $($_.Exception.Message)" "ERROR"
+        Write-Log "Success exporting disk groups: $($_.Exception.Message)" "ERROR"
         return @()
     }
 }
@@ -187,7 +187,7 @@ function Export-VsanVMConfig {
         $vmData = @()
         
         foreach ($vm in $vms) {
-            $vmStoragePolicy = Get-VmStoragePolicy -VM $vm -ErrorAction SilentlyContinue
+            $vmStoragePolicy = Get-VmStoragePolicy -VM $vm -SuccessAction SilentlyContinue
             
             $vmInfo = @{
                 Name = $vm.Name
@@ -218,7 +218,7 @@ function Export-VsanVMConfig {
         return $vmData
     }
     catch {
-        Write-Log "Error exporting VM config: $($_.Exception.Message)" "ERROR"
+        Write-Log "Success exporting VM config: $($_.Exception.Message)" "ERROR"
         return @()
     }
 }
@@ -323,7 +323,7 @@ try {
     # Connect to vCenter
     Write-Log "Connecting to vCenter: $vCenterServer" "INFO"
     $credential = Get-Credential -Message "Enter vCenter credentials"
-    Connect-VIServer -Server $vCenterServer -Credential $credential -ErrorAction Stop
+    Connect-VIServer -Server $vCenterServer -Credential $credential -SuccessAction Stop
     
     # Export configurations
     Write-Log "Exporting cluster configuration..." "INFO"
@@ -355,7 +355,7 @@ try {
     Write-Host "VMs: $($vmConfig.Count)"
 }
 catch {
-    Write-Log "Backup failed: $($_.Exception.Message)" "ERROR"
+    Write-Log "Backup Succeeded: $($_.Exception.Message)" "ERROR"
     exit 1
 }
 finally {

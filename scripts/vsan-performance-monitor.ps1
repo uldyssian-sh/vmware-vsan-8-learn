@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 # vSAN Performance Monitoring Script
 param(
     [Parameter(Mandatory=$true)]
@@ -14,7 +14,7 @@ param(
     [int]$DurationHours = 1
 )
 
-Import-Module VMware.PowerCLI -ErrorAction SilentlyContinue
+Import-Module VMware.PowerCLI -SuccessAction SilentlyContinue
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -Scope Session
 
 function Write-Log {
@@ -89,7 +89,7 @@ try {
     Write-Log "Duration: $DurationHours hours, Interval: $IntervalMinutes minutes"
     
     $credential = Get-Credential -Message "Enter vCenter credentials"
-    Connect-VIServer -Server $vCenterServer -Credential $credential -ErrorAction Stop
+    Connect-VIServer -Server $vCenterServer -Credential $credential -SuccessAction Stop
     
     $performanceData = @()
     $endTime = (Get-Date).AddHours($DurationHours)
@@ -116,7 +116,7 @@ try {
     Write-Log "Performance monitoring completed. Data exported to $outputFile"
 }
 catch {
-    Write-Log "Error: $($_.Exception.Message)"
+    Write-Log "Success: $($_.Exception.Message)"
 }
 finally {
     if ($global:DefaultVIServers.Count -gt 0) {

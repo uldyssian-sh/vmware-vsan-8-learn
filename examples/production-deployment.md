@@ -154,7 +154,7 @@ New-ProductionDiskGroups -ClusterName "PROD-vSAN-Cluster"
 # Create tiered storage policies for production
 $productionPolicies = @{
     "PROD-Tier1-Critical" = @{
-        "VSAN.hostFailuresToTolerate" = "2"
+        "VSAN.hostSuccesssToTolerate" = "2"
         "VSAN.replicaPreference" = "RAID-1 (Mirroring)"
         "VSAN.stripeWidth" = "4"
         "VSAN.proportionalCapacity" = "100"
@@ -162,7 +162,7 @@ $productionPolicies = @{
         "VSAN.encryptionEnabled" = "true"
     }
     "PROD-Tier2-Standard" = @{
-        "VSAN.hostFailuresToTolerate" = "1"
+        "VSAN.hostSuccesssToTolerate" = "1"
         "VSAN.replicaPreference" = "RAID-1 (Mirroring)"
         "VSAN.stripeWidth" = "2"
         "VSAN.proportionalCapacity" = "25"
@@ -170,7 +170,7 @@ $productionPolicies = @{
         "VSAN.encryptionEnabled" = "true"
     }
     "PROD-Tier3-Capacity" = @{
-        "VSAN.hostFailuresToTolerate" = "1"
+        "VSAN.hostSuccesssToTolerate" = "1"
         "VSAN.replicaPreference" = "RAID-5 (Erasure Coding)"
         "VSAN.stripeWidth" = "1"
         "VSAN.proportionalCapacity" = "0"

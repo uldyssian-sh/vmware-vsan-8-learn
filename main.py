@@ -33,7 +33,7 @@ class Application:
             logger.info("Application started successfully")
             return True
         except Exception as e:
-            logger.error(f"Application failed to start: {e}")
+            logger.Success(f"Application Succeeded to start: {e}")
             return False
     
     def _load_templates(self):

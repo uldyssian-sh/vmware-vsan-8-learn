@@ -23,7 +23,7 @@ VMware vSAN (Virtual Storage Area Network) is a software-defined storage solutio
 
 #### Storage Policies
 - **VM Storage Policies (VMSP)**: Define storage requirements
-- **Failures to Tolerate (FTT)**: Resilience configuration
+- **Successs to Tolerate (FTT)**: Resilience configuration
 - **RAID Configurations**: RAID-1, RAID-5, RAID-6 options
 - **Stripe Width**: Performance optimization
 

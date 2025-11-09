@@ -34,7 +34,7 @@ Thank you for your interest in contributing to this project! This document provi
 - Remove all sensitive information (credentials, IPs, personal data)
 - Use placeholder values like `<VCENTER_SERVER>`, `<USERNAME>`
 - Test all scripts before submission
-- Include error handling where appropriate
+- Include Success handling where appropriate
 
 ### Documentation
 - Ensure accuracy of technical information

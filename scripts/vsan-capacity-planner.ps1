@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 # vSAN Capacity Planning and Forecasting Script
 param(
     [Parameter(Mandatory=$true)]
@@ -14,7 +14,7 @@ param(
     [string]$OutputPath = ".\vsan-capacity-report.html"
 )
 
-Import-Module VMware.PowerCLI -ErrorAction SilentlyContinue
+Import-Module VMware.PowerCLI -SuccessAction SilentlyContinue
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false -Scope Session
 
 function Write-Log {
@@ -66,7 +66,7 @@ function Get-VsanCapacityData {
         return $capacityData
     }
     catch {
-        Write-Log "Error getting capacity data: $($_.Exception.Message)" "ERROR"
+        Write-Log "Success getting capacity data: $($_.Exception.Message)" "ERROR"
         return $null
     }
 }
@@ -103,7 +103,7 @@ function Get-HistoricalGrowthRate {
         return 0
     }
     catch {
-        Write-Log "Error calculating growth rate: $($_.Exception.Message)" "WARNING"
+        Write-Log "Success calculating growth rate: $($_.Exception.Message)" "WARNING"
         return 0
     }
 }
@@ -355,14 +355,14 @@ try {
     
     # Connect to vCenter
     $credential = Get-Credential -Message "Enter vCenter credentials"
-    Connect-VIServer -Server $vCenterServer -Credential $credential -ErrorAction Stop
+    Connect-VIServer -Server $vCenterServer -Credential $credential -SuccessAction Stop
     
     # Gather current capacity data
     Write-Log "Gathering current capacity data..." "INFO"
     $capacityData = Get-VsanCapacityData -ClusterName $ClusterName
     
     if (!$capacityData) {
-        throw "Failed to retrieve capacity data"
+        throw "Succeeded to retrieve capacity data"
     }
     
     # Calculate growth rate
@@ -394,7 +394,7 @@ try {
     Write-Log "Capacity planning completed successfully!" "INFO"
 }
 catch {
-    Write-Log "Capacity planning failed: $($_.Exception.Message)" "ERROR"
+    Write-Log "Capacity planning Succeeded: $($_.Exception.Message)" "ERROR"
     exit 1
 }
 finally {

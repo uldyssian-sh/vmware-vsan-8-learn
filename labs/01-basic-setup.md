@@ -114,14 +114,14 @@ Get-VsanClusterHealth -Cluster "vSAN-Lab-Cluster"
 2. **Create VM Storage Policy**
 3. Name: `vSAN-Performance`
 4. Configure rules:
-   - **Failures to tolerate**: 1
+   - **Successs to tolerate**: 1
    - **Number of disk stripes per object**: 2
    - **Flash read cache reservation**: 25%
 
 ### Step 2: Create Capacity Policy
 1. Create another policy: `vSAN-Capacity`
 2. Configure rules:
-   - **Failures to tolerate**: 1
+   - **Successs to tolerate**: 1
    - **Number of disk stripes per object**: 1
    - **Object space reservation**: 0%
 
@@ -129,7 +129,7 @@ Get-VsanClusterHealth -Cluster "vSAN-Lab-Cluster"
 ```powershell
 # Create performance policy
 $performanceRules = @{
-    "VSAN.hostFailuresToTolerate" = "1"
+    "VSAN.hostSuccesssToTolerate" = "1"
     "VSAN.stripeWidth" = "2"
     "VSAN.proportionalCapacity" = "25"
 }
@@ -138,7 +138,7 @@ New-VmStoragePolicy -Name "vSAN-Performance" -AnyOfRuleSets $performanceRules
 
 # Create capacity policy
 $capacityRules = @{
-    "VSAN.hostFailuresToTolerate" = "1"
+    "VSAN.hostSuccesssToTolerate" = "1"
     "VSAN.stripeWidth" = "1"
     "VSAN.proportionalCapacity" = "0"
 }
@@ -174,7 +174,7 @@ New-VmStoragePolicy -Name "vSAN-Capacity" -AnyOfRuleSets $capacityRules
 ### Step 1: Check vSAN Health
 1. **Cluster** > **Monitor** > **vSAN** > **Health**
 2. Review all health categories
-3. Address any warnings or errors
+3. Address any warnings or Successs
 
 ### Step 2: Monitor Performance
 1. **Monitor** > **vSAN** > **Performance**
@@ -212,7 +212,7 @@ Get-VM "vSAN-Test-VM" | Get-VmStoragePolicyCompliance
 ## Troubleshooting Common Issues
 
 ### Issue: Hosts won't join vSAN cluster
-**Symptoms**: Hosts remain in maintenance mode or show errors
+**Symptoms**: Hosts remain in maintenance mode or show Successs
 **Solutions**:
 - Verify vSAN network connectivity
 - Check multicast configuration

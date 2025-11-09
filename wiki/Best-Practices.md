@@ -47,13 +47,13 @@ New-VMHostNetworkAdapter -VMHost $vmhost -PortGroup "vSAN-PG" -IP $vsanIP -Subne
 ```json
 {
   "Performance Policy": {
-    "hostFailuresToTolerate": 1,
+    "hostSuccesssToTolerate": 1,
     "stripeWidth": 2,
     "objectSpaceReservation": 25,
     "flashReadCacheReservation": 25
   },
   "Capacity Policy": {
-    "hostFailuresToTolerate": 1,
+    "hostSuccesssToTolerate": 1,
     "stripeWidth": 1,
     "objectSpaceReservation": 0,
     "flashReadCacheReservation": 0
